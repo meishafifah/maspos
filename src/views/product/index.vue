@@ -1,38 +1,66 @@
 <template>
   <div>
-    <div class="w-full relative flex flex-row items-center justify-center">
-      <div
-        class="bg-blue-50/50 w-full md:w-fit p-6 rounded-2xl flex flex-row justify-center"
-      >
-        <form @submit.prevent="submit" class="flex flex-col gap-4">
-          <h1 class="font-sans font-semibold text-lg text-gray-900">
-            Tambah Produk
-          </h1>
-          <div class="w-full max-w-sm min-w-[200px]">
+    <div
+      class="w-full h-screen relative flex flex-row items-center justify-center"
+    >
+      <form @submit.prevent="submit">
+        <div class="bg-[#F5F5F5] rounded-t-2xl p-6 w-[400px]">
+          <p class="text-xl font-medium">Tambah Produk</p>
+        </div>
+        <div class="bg-white p-6 w-[400px] flex flex-col gap-4">
+          <div
+            class="w-full h-40 flex items-center justify-center border-2 border-dashed border-gray-400 rounded-lg cursor-pointer bg-[#F5F5F5] hover:border-[#2C59E5]"
+            @dragover.prevent
+            @drop.prevent="onDropFile"
+            @click="triggerFileInput"
+          >
+            <input
+              ref="fileInput"
+              type="file"
+              accept="image/png, image/jpeg"
+              class="hidden"
+              @change="onFileChange"
+            />
+            <div class="flex flex-col justify-center items-center gap-2 text-center text-xs text-[#0F0F0F]">
+              <div class="rounded-full border border-[#2C59E5] bg-[#AABCF4] p-[6px] w-fit">
+                <Plus class="w-3 h-3 text-white" />
+              </div>
+              <p>Seret & Letakkan atau <span class="text-[#2C59E5]">Pilih File</span> untuk diunggah</p>
+              <p class="text-[10px] text-[#5C5C5C]"> Format yang didukung: Jpg, Png</p>
+              <p v-if="form.picture" class="mt-2 text-green-600 font-medium">
+                {{ form.picture.name }}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h1 class="text-sm font-bold mb-1">Produk</h1>
             <input
               v-model="form.name"
               placeholder="Nama Produk"
               required
-              class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+              class="w-full bg-[#F5F5F5] placeholder:text-[#999999] text-base font-medium border border-[#5C5C5C] rounded-lg p-[14px] transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             />
           </div>
-          <div class="w-full max-w-sm min-w-[200px]">
+          <div>
+            <h1 class="text-sm font-bold mb-1">Harga</h1>
             <input
               v-model="form.price"
               type="number"
               placeholder="Harga"
               required
-              class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+              class="w-full bg-[#F5F5F5] placeholder:text-[#999999] text-base font-medium border border-[#5C5C5C] rounded-lg p-[14px] transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             />
           </div>
-          <div class="w-full max-w-sm min-w-[200px]">
+          <div>
+            <h1 class="text-sm font-bold mb-1">Pilih Kategori</h1>
             <div class="relative">
               <select
                 v-model="form.category_id"
                 required
-                class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+                class="appearance-none w-full bg-[#F5F5F5] placeholder:text-[#999999] text-base font-medium border border-[#5C5C5C] rounded-lg p-[14px] pr-10 focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm"
               >
-                <option disabled value="">-- Pilih Kategori --</option>
+                <option disabled value="">Pilih Kategori</option>
                 <option
                   v-for="c in categoryStore.categories"
                   :value="c.id"
@@ -41,154 +69,41 @@
                   {{ c.name }}
                 </option>
               </select>
+              <svg
+                class="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-[#2C59E5] pointer-events-none"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
             </div>
           </div>
-          <input type="file" @change="onFileChange" required />
-          <ButtonPrimary :type="'submit'" class="w-fit"> Tambah </ButtonPrimary>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="flex flex-row justify-between my-4">
-    <h1 class="font-sans font-semibold text-lg text-gray-900">Produk</h1>
-    <div class="w-full max-w-sm min-w-[200px]">
-      <div class="relative">
-        <select
-          v-model="productStore.selectedCategoryId"
-          class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+        </div>
+        <div
+          class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-[400px]"
         >
-          <option value="">Semua Kategori</option>
-          <option
-            v-for="c in categoryStore.categories"
-            :value="c.id"
-            :key="c.id"
+          <router-link
+            to="/"
+            class="px-4 py-2 text-center text-base font-medium rounded-lg text-[#2C59E5] border border-[#2C59E5] hover:bg-[#2C59E5] hover:text-white"
           >
-            {{ c.name }}
-          </option>
-        </select>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.2"
-          stroke="currentColor"
-          class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-          />
-        </svg>
-      </div>
+            Batal
+          </router-link>
+          <button
+            type="submit"
+            class="px-4 py-2 text-center text-base font-medium rounded-lg bg-[#2C59E5] text-white hover:bg-blue-700"
+          >
+            Tambah
+          </button>
+        </div>
+      </form>
     </div>
-  </div>
-
-  <div
-    class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-xl rounded-xl bg-clip-border"
-  >
-    <table class="w-full text-left table-auto min-w-max border">
-      <thead>
-        <tr>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Nama Produk
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Harga
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Kategori
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Gambar
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Action
-            </p>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="p in productStore.filteredList" :key="p.id">
-          <td class="p-4 border-b border-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-            >
-              {{ p.name }}
-            </p>
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-            >
-              Rp {{ p.price }}
-            </p>
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-            >
-              {{ getCategoryName(p.category_id) }}
-            </p>
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <img
-              v-if="p.picture_url"
-              :src="p.picture_url"
-              alt="Gambar Produk"
-              style="
-                width: 100px;
-                height: auto;
-                object-fit: contain;
-                margin-right: 10px;
-              "
-            />
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <div class="flex flex-row gap-4">
-              <button
-                class="block font-sans text-sm antialiased font-medium leading-normal text-green-600"
-                @click="addToCart(p)"
-              >
-                + Keranjang
-              </button>
-              <router-link
-                :to="`/product/update/${p.id}`"
-                class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900"
-              >
-                Edit
-              </router-link>
-              <button
-                class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900"
-                @click="remove(p.id)"
-              >
-                Hapus
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -197,6 +112,9 @@ import { ref, onMounted } from "vue";
 import { useProductStore } from "@/stores/product.store";
 import { useCategoryStore } from "@/stores/category.store";
 import { useCartStore } from "@/stores/cart.store";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const cartStore = useCartStore();
 
@@ -206,6 +124,8 @@ function addToCart(product) {
 
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
+
+const fileInput = ref(null);
 
 const form = ref({
   name: "",
@@ -228,10 +148,42 @@ function getCategoryName(categoryId) {
 }
 
 function onFileChange(e) {
-  form.value.picture = e.target.files[0];
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const isValid = ["image/jpeg", "image/png"].includes(file.type);
+  if (!isValid) {
+    alert("Format file harus JPG atau PNG");
+    e.target.value = "";
+    return;
+  }
+
+  form.value.picture = file;
+}
+
+function onDropFile(e) {
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+
+  const isValid = ["image/jpeg", "image/png"].includes(file.type);
+  if (!isValid) {
+    alert("Format file harus JPG atau PNG");
+    return;
+  }
+
+  form.value.picture = file;
+}
+
+function triggerFileInput() {
+  fileInput.value.click();
 }
 
 async function submit() {
+  if (!form.value.picture) {
+    alert("Mohon unggah gambar produk terlebih dahulu.");
+    return;
+  }
+
   const formData = new FormData();
   formData.append("name", form.value.name);
   formData.append("price", form.value.price);
@@ -242,6 +194,10 @@ async function submit() {
   if (success) {
     await productStore.fetchAll();
     form.value = { name: "", price: "", category_id: "", picture: null };
+    
+    setTimeout(() => {
+      router.push("/");
+    }, 3000);
   }
 }
 
@@ -250,5 +206,4 @@ function remove(id) {
     productStore.delete(id);
   }
 }
-
 </script>

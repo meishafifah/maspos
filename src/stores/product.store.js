@@ -8,13 +8,21 @@ export const useProductStore = defineStore('product', {
     list: [],
     product: null,
     selectedCategoryId: '',
+    productName: '',
   }),
   getters: {
     filteredList(state) {
-      if (!state.selectedCategoryId) return state.list;
-      return state.list.filter(
-        p => p.category_id === state.selectedCategoryId
-      );
+      return state.list.filter((p) => {
+        const matchCategory = state.selectedCategoryId
+          ? p.category_id === state.selectedCategoryId
+          : true;
+    
+        const matchName = state.productName
+          ? p.name?.toLowerCase().includes(state.productName.toLowerCase())
+          : true;
+    
+        return matchCategory && matchName;
+      });
     },
   },
   actions: {

@@ -1,8 +1,6 @@
 import LoginView from '@/views/auth/login/index.vue'
 import RegisterView from '@/views/auth/register/index.vue'
 
-import ExampleLayout from '@/layouts/ExampleLayout.vue';
-
 // middleware
 import GuestMiddleware from '@/middleware/guest.middleware.js';
 

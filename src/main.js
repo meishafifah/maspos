@@ -12,7 +12,13 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import * as lucide from 'lucide-vue-next'
+
 const app = createApp(App)
+
+for (const [key, component] of Object.entries(lucide)) {
+  app.component(key, component)
+}
 
 app.use(VueSweetalert2, {
   confirmButtonColor: '#5fa5f9',

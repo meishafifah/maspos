@@ -11,4 +11,12 @@ module.exports = {
         './src/**/*.{vue,js,ts,jsx,tsx}',
     ], 
     plugins: [],
+    theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            montserrat: ['Montserrat', 'sans-serif'],
+          },
+        },
+      },
 };

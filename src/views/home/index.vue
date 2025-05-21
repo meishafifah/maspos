@@ -1,145 +1,88 @@
 <template>
-  <div class="flex flex-row justify-between mb-4">
-    <h1 class="font-sans font-semibold text-lg text-gray-900">
-      Dashboard
-    </h1>
-    <div class="w-full max-w-sm min-w-[200px]">
+  <div class="grid grid-cols-6 gap-4 mt-8">
+    <div
+      v-for="p in productStore.filteredList"
+      :key="p.id"
+      class="bg-white border border-[#D6D6D6] rounded-2xl p-2 flex flex-col gap-3"
+    >
       <div class="relative">
-        <select
-          v-model="productStore.selectedCategoryId"
-          class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+        <img
+          v-if="p.picture_url"
+          :src="p.picture_url"
+          alt="Gambar Produk"
+          class="w-[200px] h-[177px] object-cover rounded-lg"
+        />
+        <router-link
+          :to="`/product/update/${p.id}`"
+          class="absolute right-3 bottom-11 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
         >
-          <option value="">Semua Kategori</option>
-          <option
-            v-for="c in categoryStore.categories"
-            :value="c.id"
-            :key="c.id"
-          >
-            {{ c.name }}
-          </option>
-        </select>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.2"
-          stroke="currentColor"
-          class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700"
+          <Pencil class="w-4 h-4 text-[#23A948]" />
+        </router-link>
+        <button
+          class="absolute right-3 bottom-2 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
+          @click="confirmRemove(p.id)"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-          />
-        </svg>
+          <Trash2 class="w-4 h-4 text-red-600" />
+        </button>
+      </div>
+      <div>
+        <p class="mb-1 font-medium text-[#0F0F0F] text-base">{{ p.name }}</p>
+        <p class="font-bold text-[#23A948] text-base">Rp {{ p.price }}</p>
+      </div>
+      <button
+        @click="addToCart(p)"
+        class="flex flex-row items-center justify-center gap-2 font-medium text-base text-white bg-[#2C59E5] rounded-lg py-[10px]"
+      >
+        <Plus class="w-4 h-4" />
+        <p>Keranjang</p>
+      </button>
+    </div>
+  </div>
+
+  <div
+    v-if="showModal"
+    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+  >
+    <div>
+      <div class="bg-white rounded-t-2xl p-6 w-[320px]">
+        <div class="mb-4 w-fit rounded-full bg-[#FFA8A8] p-2">
+          <div class="rounded-full bg-[#FF2928] p-2">
+            <Trash2 class="w-6 h-6 text-white" />
+          </div>
+        </div>
+        <p class="font-bold mb-2">Hapus Produk</p>
+        <p>Apakah Anda yakin ingin menghapus produk ini ?</p>
+      </div>
+      <div class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-[320px]">
+        <button
+          @click="showModal = false"
+          class="px-4 py-2 text-base font-medium rounded-lg text-[#FF2928] border border-[#FF2928] hover:bg-[#FF2928] hover:text-white"
+        >
+          Batal
+        </button>
+        <button
+          @click="remove(selectedProductId)"
+          class="px-4 py-2 text-base font-medium rounded-lg bg-[#FF2928] text-white hover:bg-red-700"
+        >
+          Hapus
+        </button>
       </div>
     </div>
   </div>
-  <div
-    class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-xl rounded-xl bg-clip-border"
-  >
-    <table class="w-full text-left table-auto min-w-max border">
-      <thead>
-        <tr>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Nama Produk
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Harga
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Kategori
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Gambar
-            </p>
-          </th>
-          <th class="p-4 border-b border-gray-100 bg-blue-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-semibold leading-none text-blue-gray-900 opacity-70"
-            >
-              Action
-            </p>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="p in productStore.filteredList" :key="p.id">
-          <td class="p-4 border-b border-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-            >
-              {{ p.name }}
-            </p>
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-            >
-              Rp {{ p.price }}
-            </p>
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <p
-              class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-            >
-              {{ getCategoryName(p.category_id) }}
-            </p>
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <img
-              v-if="p.picture_url"
-              :src="p.picture_url"
-              alt="Gambar Produk"
-              style="
-                width: 100px;
-                height: auto;
-                object-fit: contain;
-                margin-right: 10px;
-              "
-            />
-          </td>
-          <td class="p-4 border-b border-gray-50">
-            <div class="flex flex-row gap-4">
-              <router-link
-                :to="`/product/update/${p.id}`"
-                class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900"
-              >
-                Edit
-              </router-link>
-              <button
-                class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900"
-                @click="remove(p.id)"
-              >
-                Hapus
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { useProductStore } from "@/stores/product.store";
-import { useCategoryStore } from "@/stores/category.store"; // Buat juga store kategori kalau belum
+import { useCategoryStore } from "@/stores/category.store";
+import { useCartStore } from "@/stores/cart.store";
+
+const cartStore = useCartStore();
+
+function addToCart(product) {
+  cartStore.addToCart(product);
+}
 
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
@@ -153,5 +96,21 @@ onMounted(async () => {
 function getCategoryName(categoryId) {
   const category = categoryStore.categories.find((c) => c.id === categoryId);
   return category ? category.name : "-";
+}
+
+const showModal = ref(false);
+const selectedProductId = ref(null);
+
+function confirmRemove(id) {
+  selectedProductId.value = id;
+  showModal.value = true;
+}
+
+function remove(id) {
+  if (selectedProductId.value) {
+    productStore.delete(selectedProductId.value);
+    selectedProductId.value = null;
+    showModal.value = false;
+  }
 }
 </script>

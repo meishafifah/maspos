@@ -15,16 +15,20 @@ export const useAuthStore = defineStore({
     }),
     actions: {
         async login(data) {
-            const user = await axiosWrapper.post(loginUrl, data, true);
-
-            if (user.status == 200) {
+            try {
+              const user = await axiosWrapper.post(loginUrl, data, true);
+          
+              if (user.status === 200) {
                 this.user = user.data;
-
                 localStorage.setItem('user', JSON.stringify(user.data));
-
                 router.push('/');
+              } else {
+                throw new Error('Kata sandi yang Anda masukkan salah');
+              }
+            } catch (err) {
+              throw new Error(err?.response?.data?.message || 'Kata sandi yang Anda masukkan salah');
             }
-        },
+          },          
         async logout() {
             this.user = null;
 
