@@ -5,7 +5,7 @@ import { axiosWrapper } from '@/helper/axios-wrapper.js';
 import router from '@/router/index.js';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
-const loginUrl = `${baseUrl}/api/v1/login`
+const loginUrl = `https://mas-pos.appmedia.id/api/v1/login`
 
 export const useAuthStore = defineStore({
     id: 'auth',
