@@ -10,21 +10,21 @@ export const useCategoryStore = defineStore('category', {
   }),
   actions: {
     async fetchAll() {
-      const res = await axiosWrapper.get(`${baseUrl}/api/v1/category`);
+      const res = await axiosWrapper.get('https://mas-pos.appmedia.id/api/v1/category');
       if (res) this.categories = res.data;
     },
     async fetchById(id) {
-      const res = await axiosWrapper.get(`${baseUrl}/api/v1/category/${id}`);
+      const res = await axiosWrapper.get(`https://mas-pos.appmedia.id/api/v1/category/${id}`);
       if (res) this.category = res.data;
     },
     async create(data) {
-      return await axiosWrapper.post(`${baseUrl}/api/v1/category`, data, true);
+      return await axiosWrapper.post(`https://mas-pos.appmedia.id/api/v1/category`, data, true);
     },
     async update(id, data) {
-      return await axiosWrapper.put(`${baseUrl}/api/v1/category/${id}`, data, true);
+      return await axiosWrapper.put(`https://mas-pos.appmedia.id/api/v1/category/${id}`, data, true);
     },
     async remove(id) {
-      return await axiosWrapper.delete(`${baseUrl}/api/v1/category/${id}`, null, true);
+      return await axiosWrapper.delete(`https://mas-pos.appmedia.id/api/v1/category/${id}`, null, true);
     }
   }
 });
