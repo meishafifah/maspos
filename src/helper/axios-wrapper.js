@@ -50,7 +50,8 @@ function request(method) {
 function authHeader(url) {
   const { user } = useAuthStore();
   const isLoggedIn = !!user?.token;
-  const isApiUrl = url.startsWith(import.meta.env.VITE_BASE_URL);
+  const isApiUrl = url.startsWith('https://mas-pos.appmedia.id/api/v1/');
+
   if (isLoggedIn && isApiUrl) {
     return { Authorization: `Bearer ${user.token}` };
   } else {
