@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-6 gap-4 mt-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mt-8">
     <div
       v-for="p in productStore.filteredList"
       :key="p.id"
@@ -10,16 +10,16 @@
           v-if="p.picture_url"
           :src="p.picture_url"
           alt="Gambar Produk"
-          class="w-[200px] h-[177px] object-cover rounded-lg"
+          class="w-full h-[177px] object-cover rounded-lg"
         />
         <router-link
           :to="`/product/update/${p.id}`"
-          class="absolute right-3 bottom-11 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
+          class="absolute right-2 bottom-11 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
         >
           <Pencil class="w-4 h-4 text-[#23A948]" />
         </router-link>
         <button
-          class="absolute right-3 bottom-2 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
+          class="absolute right-2 bottom-2 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
           @click="confirmRemove(p.id)"
         >
           <Trash2 class="w-4 h-4 text-red-600" />
@@ -44,7 +44,7 @@
     class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
   >
     <div>
-      <div class="bg-white rounded-t-2xl p-6 w-[320px]">
+      <div class="bg-white rounded-t-2xl p-6 w-[250px] md:w-[320px]">
         <div class="mb-4 w-fit rounded-full bg-[#FFA8A8] p-2">
           <div class="rounded-full bg-[#FF2928] p-2">
             <Trash2 class="w-6 h-6 text-white" />
@@ -53,7 +53,7 @@
         <p class="font-bold mb-2">Hapus Produk</p>
         <p>Apakah Anda yakin ingin menghapus produk ini ?</p>
       </div>
-      <div class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-[320px]">
+      <div class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-[250px] md:w-[320px]">
         <button
           @click="showModal = false"
           class="px-4 py-2 text-base font-medium rounded-lg text-[#FF2928] border border-[#FF2928] hover:bg-[#FF2928] hover:text-white"
@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <script setup>

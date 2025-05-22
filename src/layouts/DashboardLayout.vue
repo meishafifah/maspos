@@ -1,28 +1,28 @@
 <template>
-  <div class="bg-[#EDF0F2] min-h-screen p-8 relative">
-    <div class="bg-white py-4 px-6 rounded-xl sticky top-8 z-10">
-      <div class="flex flex-row justify-between items-center">
+  <div class="bg-[#EDF0F2] min-h-screen p-2 md:p-8 relative">
+    <div class="bg-white py-4 px-4 md:px-6 rounded-xl md:sticky top-8 z-10">
+      <div class="flex flex-col lg:flex-row gap-2 lg:gap-0 justify-between lg:items-center">
         <router-link
           to="/"
           class="font-montserrat font-bold text-blue-600 text-xl"
           >MASPOS</router-link
         >
-        <div class="flex flex-row gap-4">
+        <div class="flex flex-col md:flex-row gap-2 md:gap-4">
           <router-link
             to="/category"
-            class="link flex flex-row items-center gap-2 font-medium text-base text-white bg-[#2C59E5] rounded-lg px-6 py-[14.5px]"
+            class="link flex flex-row items-center gap-2 font-medium text-sm md:text-base text-white bg-[#2C59E5] rounded-lg p-2 lg:px-6 lg:py-[14.5px]"
           >
             <Plus class="w-4 h-4" />
             <p>Tambah Kategori</p>
           </router-link>
           <router-link
             to="/product"
-            class="link flex flex-row items-center gap-2 font-medium text-base text-white bg-[#2C59E5] rounded-lg px-6 py-[14.5px]"
+            class="link flex flex-row items-center gap-2 font-medium text-sm md:text-base text-white bg-[#2C59E5] rounded-lg p-2 lg:px-6 lg:py-[14.5px]"
           >
             <Plus class="w-4 h-4" />
             <p>Tambah Produk</p>
           </router-link>
-          <div class="bg-[#E8EDFC] rounded-lg flex flex-row items-center">
+          <div class="bg-[#E8EDFC] w-fit md:w-auto rounded-lg flex flex-row items-center">
             <router-link
               to="/cart"
               class="link font-medium text-base text-white bg-[#2C59E5] h-full rounded-lg p-4 flex fle-row items-center relative"
@@ -64,7 +64,7 @@
 
       <div v-if="isHomePage">
         <div class="h-[1px] my-6 bg-[#D6D6D6]"></div>
-        <div class="flex flex-row gap-6">
+        <div class="flex flex-col md:flex-row gap-2 md:gap-6">
           <div class="relative">
             <Search
               class="absolute w-4 h-4 top-1/2 left-2 -translate-y-1/2 text-[#2C59E5]"

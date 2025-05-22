@@ -1,29 +1,35 @@
 <template>
-  <div>
-    <div class="w-full lg:h-screen relative flex flex-row items-center justify-start md:justify-center">
-      <div
-        class="bg-blue-50/50 w-full md:w-fit p-6 rounded-2xl flex flex-row justify-center"
-      >
-        <div class="flex flex-col gap-4">
-          <h1 class="font-sans font-semibold text-lg text-gray-900">
-            Tambah Kategori
-          </h1>
-          <form @submit.prevent="updateCategory" class="flex flex-col gap-4">
-            <div class="w-full max-w-sm min-w-[200px]">
-              <input
-                v-model="form.name"
-                placeholder="Nama Produk"
-                required
-                class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-              />
-            </div>
-            <ButtonPrimary :type="'submit'" class="w-full">
-              Edit
-            </ButtonPrimary>
-          </form>
-        </div>
+<div class="p-2 mt-8 md:mt-10 w-full relative flex flex-row items-center justify-center">
+    <form @submit.prevent="updateCategory">
+      <div class="bg-[#F5F5F5] rounded-t-2xl p-4 md:p-6 w-full md:w-[320px]">
+        <p class="text-base md:text-xl font-medium">Edit Kategori</p>
       </div>
-    </div>
+      <div class="bg-white p-6 w-full md:w-[320px]">
+        <h1 class="text-sm font-bold mb-1">Kategori</h1>
+        <input
+          v-model="form.name"
+          placeholder="Nama Kategori"
+          required
+          class="w-full bg-[#F5F5F5] placeholder:text-[#999999] text-sm md:text-base font-medium border border-[#5C5C5C] rounded-lg p-[14px] transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+        />
+      </div>
+      <div
+        class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-full md:w-[320px]"
+      >
+        <router-link
+          to="/category"
+          class="px-4 py-2 text-center text-sm md:text-base font-medium rounded-lg text-[#2C59E5] border border-[#2C59E5] hover:bg-[#2C59E5] hover:text-white"
+        >
+          Batal
+        </router-link>
+        <button
+          type="submit"
+          class="px-4 py-2 text-center text-sm md:text-base font-medium rounded-lg bg-[#2C59E5] text-white hover:bg-blue-700"
+        >
+          Update
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 

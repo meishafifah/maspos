@@ -1,13 +1,13 @@
 <template>
   <div>
     <div
-      class="w-full h-screen relative flex flex-row items-center justify-center"
+      class="p-2 w-full h-screen relative flex flex-row items-center justify-center"
     >
       <form @submit.prevent="submit">
-        <div class="bg-[#F5F5F5] rounded-t-2xl p-6 w-[400px]">
+        <div class="bg-[#F5F5F5] rounded-t-2xl p-6 w-full md:w-[400px]">
           <p class="text-xl font-medium">Tambah Produk</p>
         </div>
-        <div class="bg-white p-6 w-[400px] flex flex-col gap-4">
+        <div class="bg-white p-6 w-full md:w-[400px] flex flex-col gap-4">
           <div
             class="w-full h-40 flex items-center justify-center border-2 border-dashed border-gray-400 rounded-lg cursor-pointer bg-[#F5F5F5] hover:border-[#2C59E5]"
             @dragover.prevent
@@ -87,7 +87,7 @@
           </div>
         </div>
         <div
-          class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-[400px]"
+          class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-full md:w-[400px]"
         >
           <router-link
             to="/"
