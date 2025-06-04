@@ -93,6 +93,3 @@ function errorHandler(error) {
 
   return false;
 }
-
-
-

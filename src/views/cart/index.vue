@@ -114,16 +114,14 @@
       <div class="flex flex-row gap-6">
         <router-link
           to="/"
-          class="px-4 py-2 text-center text-base font-medium rounded-lg text-[#2C59E5] border border-[#2C59E5] hover:bg-[#2C59E5] hover:text-white"
         >
-          Kembali
+          <ButtonPrimary>Kembali</ButtonPrimary>
         </router-link>
         <button
           @click="goToTransaction"
         :disabled="cartStore.items.length === 0"
-          class="px-4 py-2 text-center text-base font-medium rounded-lg bg-[#2C59E5] text-white hover:bg-blue-700"
         >
-          Bayar
+          <ButtonPrimary variant="primary">Bayar</ButtonPrimary>
         </button>
       </div>
     </div>

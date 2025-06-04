@@ -22,17 +22,18 @@
         </ul>
         <div
           v-if="transactionItems.length > 0"
-          class="mt-6 flex flex-col gap-4 items-end"
+          class="mt-6 flex flex-col gap-4 w-full"
         >
-          <div class="text-lg font-medium text-gray-900">
+          <div class="text-lg font-medium text-gray-900 text-right">
             <strong>Total: {{ formatCurrency(totalTransaction) }}</strong>
           </div>
-          <router-link
-            to="/"
-            class="w-full py-[14.5px] flex flex-row gap-2 justify-center items-center text-center text-base font-medium rounded-lg bg-[#2C59E5] text-white hover:bg-blue-700"
-          >
-            <ArrowLeft class="w-4 h-4" />
-            Kembali
+          <router-link to="/">
+            <ButtonPrimary
+              variant="primary"
+              icon="ArrowLeft"
+              class="w-full flex items-center justify-center"
+              >Kembali</ButtonPrimary
+            >
           </router-link>
         </div>
         <div v-else class="text-center mt-10 font-semibold text-gray-600">
