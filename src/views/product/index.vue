@@ -47,36 +47,12 @@
     </div>
     <div>
       <label class="text-sm font-bold mb-1">Pilih Kategori</label>
-      <div class="relative">
-        <select
-          v-model="form.category_id"
-          required
-          class="appearance-none w-full bg-[#F5F5F5] placeholder:text-[#999999] text-base font-medium border border-[#5C5C5C] rounded-lg p-[14px] pr-10 focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm"
-        >
-          <option disabled value="">Pilih Kategori</option>
-          <option
-            v-for="category in categoryStore.categories"
-            :value="category.id"
-            :key="category.id"
-          >
-            {{ category.name }}
-          </option>
-        </select>
-        <svg
-          class="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-[#2C59E5] pointer-events-none"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"
-          ></path>
-        </svg>
-      </div>
+      <Select
+        v-model="form.category_id"
+        textOptionDisable="Pilih Kategori"
+        item="category"
+        :forValue="categoryStore.categories"
+      />
     </div>
   </FormCard>
 </template>
@@ -87,9 +63,6 @@ import { useProductStore } from "@/stores/product.store";
 import { useCategoryStore } from "@/stores/category.store";
 import { useCartStore } from "@/stores/cart.store";
 import { useRouter } from "vue-router";
-import { Plus } from "lucide-vue-next";
-import FormCard from "@/components/FormCard.vue";
-import Input from "@/components/Input.vue";
 
 const router = useRouter();
 const cartStore = useCartStore();

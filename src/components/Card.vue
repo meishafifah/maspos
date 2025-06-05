@@ -9,12 +9,12 @@
         alt="Gambar Produk"
         class="w-full h-[177px] object-cover rounded-lg"
       />
-      <router-link
-        :to="`/product/update/${product.id}`"
+      <button
+        @click="$router.push(`/product/update/${product.id}`)"
         class="absolute right-2 bottom-11 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
       >
         <Pencil class="w-4 h-4 text-[#23A948]" />
-      </router-link>
+      </button>
       <button
         class="absolute right-2 bottom-2 bg-white/50 border border-white/50 bg-opacity-30 p-[6px] rounded-md"
         @click="onConfirmRemove(product.id)"
@@ -29,7 +29,6 @@
       <p class="font-bold text-[#23A948] text-base">Rp {{ product.price }}</p>
     </div>
     <ButtonPrimary
-      variant="primary"
       class="flex items-center justify-center"
       icon="Plus"
       @click="onAddToCart(product)"

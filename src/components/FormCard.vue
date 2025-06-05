@@ -12,17 +12,14 @@
       <div
         class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-full md:w-[400px]"
       >
-        <router-link :to="cancelLink">
-          <ButtonPrimary class="w-full flex justify-center"
-            >Batal</ButtonPrimary
-          >
-        </router-link>
-        <ButtonPrimary
-          type="submit"
-          variant="primary"
+        <ButtonPrimaryOutline
+          @click="$router.push(cancelLink)"
           class="w-full flex justify-center"
-          >{{ text }}</ButtonPrimary
+          >Batal</ButtonPrimaryOutline
         >
+        <ButtonPrimary type="submit" class="w-full flex justify-center">{{
+          text
+        }}</ButtonPrimary>
       </div>
     </form>
   </div>

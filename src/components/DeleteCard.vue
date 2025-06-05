@@ -12,13 +12,11 @@
     <div
       class="grid grid-cols-2 gap-2 bg-white border-t border-[#D6D6D6] rounded-b-2xl p-6 w-[250px] md:w-[320px]"
     >
-      <button
-        @click="closeModal"
-        class="px-4 py-2 text-base font-medium rounded-lg text-[#FF2928] border border-[#FF2928] hover:bg-[#FF2928] hover:text-white"
-      >
+      <ButtonDangerOutline type="button" @click="closeModal">
         Batal
-      </button>
+      </ButtonDangerOutline>
       <ButtonDanger
+        type="button"
         @click="remove"
         class="px-4 py-2 text-base font-medium rounded-lg bg-[#FF2928] text-white hover:bg-red-700"
       >

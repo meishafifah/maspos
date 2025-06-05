@@ -27,14 +27,12 @@
           <div class="text-lg font-medium text-gray-900 text-right">
             <strong>Total: {{ formatCurrency(totalTransaction) }}</strong>
           </div>
-          <router-link to="/">
-            <ButtonPrimary
-              variant="primary"
-              icon="ArrowLeft"
-              class="w-full flex items-center justify-center"
-              >Kembali</ButtonPrimary
-            >
-          </router-link>
+          <ButtonPrimary
+            @click="$router.push('/')"
+            icon="ArrowLeft"
+            class="w-full flex items-center justify-center"
+            >Kembali</ButtonPrimary
+          >
         </div>
         <div v-else class="text-center mt-10 font-semibold text-gray-600">
           Tidak ada data transaksi.

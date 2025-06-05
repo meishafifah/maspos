@@ -1,15 +1,11 @@
 <template>
-  <FormCard
-    title="Tambah Kategori"
-    cancelLink="/"
-    @submit="addCategory"
-  >
+  <FormCard title="Tambah Kategori" cancelLink="/" @submit="addCategory">
     <label class="text-sm font-bold mb-1">Kategori</label>
-    <input
+    <Input
+      type="text"
       v-model="form.name"
       placeholder="Nama Kategori"
       required
-      class="w-full bg-[#F5F5F5] placeholder:text-[#999999] text-sm md:text-base font-medium border border-[#5C5C5C] rounded-lg p-[14px] transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
     />
   </FormCard>
 
@@ -72,8 +68,6 @@
 import { ref, onMounted } from "vue";
 import { useCategoryStore } from "@/stores/category.store.js";
 import { useRouter } from "vue-router";
-
-import FormCard from "@/components/FormCard.vue";
 
 const router = useRouter();
 const categoryStore = useCategoryStore();

@@ -27,8 +27,6 @@ import { ref, onMounted } from "vue";
 import { useProductStore } from "@/stores/product.store";
 import { useCategoryStore } from "@/stores/category.store";
 import { useCartStore } from "@/stores/cart.store";
-import Card from "@/components/Card.vue";
-import DeleteCard from "@/components/DeleteCard.vue";
 
 const cartStore = useCartStore();
 const productStore = useProductStore();

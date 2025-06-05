@@ -3,48 +3,45 @@
     <div
       class="flex flex-col lg:flex-row gap-2 lg:gap-0 justify-between lg:items-center"
     >
-      <router-link
-        to="/"
+      <div
+        @click="$router.push('/')"
         class="font-montserrat font-bold text-blue-600 text-xl"
-        >MASPOS</router-link
       >
+        MASPOS
+      </div>
       <div class="flex flex-col md:flex-row gap-4">
-        <div class="flex flex-col xl:flex-row justify-end items-end gap-2 md:gap-4">
+        <div
+          class="flex flex-col xl:flex-row justify-end items-end gap-2 md:gap-4"
+        >
           <div class="flex flex-row gap-2 md:gap-4">
-            <router-link to="/category">
-              <ButtonPrimary
-                variant="primary"
-                icon="Plus"
-                class="p-2 lg:px-6 lg:py-[14.5px] w-full"
-                >Tambah Kategori</ButtonPrimary
-              >
-            </router-link>
-            <router-link to="/product">
-              <ButtonPrimary
-                variant="primary"
-                icon="Plus"
-                class="p-2 lg:px-6 lg:py-[14.5px] w-full"
-                >Tambah Produk</ButtonPrimary
-              >
-            </router-link>
+            <ButtonPrimary
+              @click="$router.push('/category')"
+              icon="Plus"
+              class="!p-4"
+              >Tambah Kategori</ButtonPrimary
+            >
+            <ButtonPrimary
+              @click="$router.push('/product')"
+              icon="Plus"
+              class="!p-4"
+              >Tambah Produk</ButtonPrimary
+            >
           </div>
           <div
             class="bg-[#E8EDFC] w-fit h-fit md:w-auto rounded-lg flex flex-row items-center"
           >
-            <router-link to="/cart">
-              <ButtonPrimary
-                variant="primary"
-                icon="ShoppingCart"
-                class="!p-3 lg:!p-[18px] relative"
+            <ButtonPrimary
+              @click="$router.push('/cart')"
+              icon="ShoppingCart"
+              class="!p-4 lg:!p-5 relative"
+            >
+              <div
+                v-if="cartStore.totalItems > 0"
+                class="rounded-full bg-[#3ED669] px-2 py-1 text-xs absolute -top-2 -right-1"
               >
-                <div
-                  v-if="cartStore.totalItems > 0"
-                  class="rounded-full bg-[#3ED669] px-2 py-1 text-xs absolute -top-2 -right-1"
-                >
-                  {{ cartStore.totalItems }}
-                </div>
-              </ButtonPrimary>
-            </router-link>
+                {{ cartStore.totalItems }}
+              </div>
+            </ButtonPrimary>
             <p v-if="cartStore.totalItems > 0" class="text-[#2C59E5] px-2">
               Total Tagihan
               <span class="font-bold">Rp {{ formattedTotalPrice }}</span>
@@ -137,8 +134,6 @@ import { useAuthStore } from "@/stores/auth.store.js";
 import { useCartStore } from "@/stores/cart.store";
 import { useCategoryStore } from "@/stores/category.store";
 import { useProductStore } from "@/stores/product.store";
-import ButtonPrimary from "@/components/Button/Primary.vue";
-import { Search } from 'lucide-vue-next';
 
 export default {
   name: "DashboardLayout",

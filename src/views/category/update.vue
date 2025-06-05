@@ -1,5 +1,10 @@
 <template>
-  <FormCard title="Edit Kategori" cancelLink="/category" text="Update" @submit="updateCategory">
+  <FormCard
+    title="Edit Kategori"
+    cancelLink="/category"
+    text="Update"
+    @submit="updateCategory"
+  >
     <label class="text-sm font-bold mb-1">Kategori</label>
     <Input v-model="form.name" placeholder="Nama Kategori" required />
   </FormCard>
@@ -9,8 +14,6 @@
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useCategoryStore } from "@/stores/category.store";
-import FormCard from "@/components/FormCard.vue";
-import Input from "@/components/Input.vue";
 
 const router = useRouter();
 const route = useRoute();
